@@ -14,6 +14,10 @@ public class MainMenu : MonoBehaviour
         //So we're at scene 0 currently, I add by LevelSelect, (which is 1), to get me to the level select scene which is scene 1
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + (int)Scenes.LevelSelect);
     }
+    //Code to send to options menu
+    public void OptionMenu() {
+        SceneManager.LoadScene("Options");
+    }
     public void Exit() {
         Application.Quit();
         Debug.Log("Off to visit your mother");
