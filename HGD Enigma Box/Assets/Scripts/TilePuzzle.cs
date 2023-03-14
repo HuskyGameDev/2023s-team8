@@ -6,6 +6,8 @@ public class TilePuzzle : MonoBehaviour
     private Camera _camera;
     [SerializeField] private TilesScript[] tiles;
     private int emptySpaceIndex = 14;
+    private bool _isFinished = false;
+    [SerializeField] private GameObject endPanel;
 
     void Start()
     {
@@ -22,8 +24,8 @@ public class TilePuzzle : MonoBehaviour
                 if(Vector2.Distance(emptySpace.position, hit.transform.position) < 2) {
                     Vector2 lastEmptySpacePosition = emptySpace.position;
                     TilesScript thisTile = hit.transform.GetComponent<TilesScript>();
-                    emptySpace.position = thisTile.targetPosition;
-                    thisTile.targetPosition = lastEmptySpacePosition;
+                    emptySpace.position = thisTile.targetPos;
+                    thisTile.targetPos = lastEmptySpacePosition;
                     int tileInd = findInd(thisTile);
                     tiles[emptySpaceIndex] = tiles[tileInd];
                     tiles[tileInd] = null;
@@ -32,16 +34,38 @@ public class TilePuzzle : MonoBehaviour
                 }
             }
         }
+        if (!_isFinished) {
+            int correctTiles = 0;
+            foreach(var a in tiles) {
+                if (a != null) {
+                    if (a.inRightPlace) {
+                        correctTiles++;
+                    }
+                }
+            }
+            if (correctTiles == tiles.Length - 1) {
+                _isFinished = true;
+                endPanel.SetActive(true);
+            }
+        }
     }
 
     public void Shuffle() {
+        if (emptySpaceIndex != 14) {
+            var tileEmpty = tiles[14].targetPos;
+            tiles[15].targetPos = emptySpace.position;
+            emptySpace.position = tileEmpty;
+            tiles[emptySpaceIndex] = tiles[14];
+            tiles[14] = null;
+            emptySpaceIndex = 14;
+        }
         int inversions;
         do {
         for (int i = 0; i <= 13; i++) {
-            var lastPos = tiles[i].targetPosition;
+            var lastPos = tiles[i].targetPos;
             int randInd = Random.Range(0, 13);
-            tiles[i].targetPosition = tiles[randInd].targetPosition;
-            tiles[randInd].targetPosition = lastPos;
+            tiles[i].targetPos = tiles[randInd].targetPos;
+            tiles[randInd].targetPos = lastPos;
             var tile = tiles[i];
             tiles[i] = tiles[randInd];
             tiles[randInd] = tile;

@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class TilesScript : MonoBehaviour
 {
-    public Vector3 targetPosition;
+    public Vector3 targetPos;
+    public Vector3 correctPos;
     public int num;
+    public bool inRightPlace;
+
     void Awake()
     {
-        targetPosition = transform.position;
+        targetPos = transform.position;
+        correctPos = transform.position;
+        correctPos.z = 0;
     }
 
     void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.05f);
+        transform.position = Vector3.Lerp(transform.position, targetPos, 0.05f);
+        if (targetPos == correctPos) {
+            inRightPlace = true;
+        } else {
+            inRightPlace = false;
+        }
     }
 }
