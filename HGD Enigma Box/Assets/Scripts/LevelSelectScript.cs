@@ -11,8 +11,11 @@ to go to the correct scene
 */
 public class LevelSelectScript : MonoBehaviour
 {
-    public int level;
+    public string level;
     public void LevelSelect() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + level);
+        SceneManager.LoadScene("Level " + level);
+    }
+    public void Back(){
+        SceneManager.LoadScene("MainMenuScene");
     }
 }
