@@ -35,7 +35,8 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
         Debug.Log("Off to visit your mother");
     }
-    //Similar to level select where the button gives a number to send to
+    //Similar to level select, but instead I have a specific name and only the number given changes
+    //The number given depends on which secondary scene you are being sent to
     public void GoToSecondary(){
         SceneManager.LoadScene("Secondary Level " + Secondary);
     }
