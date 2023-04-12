@@ -12,8 +12,6 @@ to go to the correct scene
 public class LevelSelectScript : MonoBehaviour
 {
     public Button[] levelButtons;
-    public Sprite Locked;
-    public Sprite Unlocked;
     void Start(){
         int levelReached = PlayerPrefs.GetInt("levelReached", 1);
 
@@ -21,7 +19,6 @@ public class LevelSelectScript : MonoBehaviour
             if(i+1 > levelReached){
 
             levelButtons[i].interactable = false;
-            //levelButtons[i].image.sprite = newButtonImage;
             }
         }
     }
