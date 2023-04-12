@@ -11,9 +11,23 @@ to go to the correct scene
 */
 public class LevelSelectScript : MonoBehaviour
 {
-    public string level;
-    public void LevelSelect() {
-        SceneManager.LoadScene("Level " + level);
+    public Button[] levelButtons;
+    public Sprite Locked;
+    public Sprite Unlocked;
+    void Start(){
+        int levelReached = PlayerPrefs.GetInt("levelReached", 1);
+
+        for(int i = 0; i < levelButtons.Length; i++){
+            if(i+1 > levelReached){
+
+            levelButtons[i].interactable = false;
+            //levelButtons[i].image.sprite = newButtonImage;
+            }
+        }
+    }
+
+    public void LevelSelect(string nextLevel) {
+        SceneManager.LoadScene("Level " + nextLevel);
     }
     public void Back(){
         SceneManager.LoadScene("MainMenuScene");
