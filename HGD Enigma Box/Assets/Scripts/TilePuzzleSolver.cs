@@ -1,15 +1,19 @@
-// using System;
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-// public class TilePuzzleSolver : MonoBehaviour {
-//     // Start is called before the first frame update
-//     void Start() { }
+public class TilePuzzleSolver : MonoBehaviour {
+    public GameManager gameManager;
+    // Start is called before the first frame update
+    void Start() { }
 
-//     // Update is called once per frame
-//     void Update() { }
-// }
+    // Update is called once per frame
+    void Update() { }
+    public void finished(){
+        gameManager.pogressMade();
+    }
+}
 
 // class SlidingPuzzleSolver {
 //     static int[] dx = { -1, 0, 1, 0 };
@@ -92,3 +96,5 @@
 
 //         g[puzzle] = 0;
 //         f[puzzle]
+//     }
+// }
