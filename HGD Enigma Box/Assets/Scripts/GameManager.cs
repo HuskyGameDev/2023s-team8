@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    int NextLevelIndex = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +15,12 @@ public class GameManager : MonoBehaviour
     {
         
     }
-    public void pogressMade(){
-        PlayerPrefs.SetInt("levelReached", NextLevelIndex);
-        NextLevelIndex++;
+    //function will determine if he level has been finished
+    public void pogressMade(int finishedLevel){
+        //if the finished level is the same as the one the player has reached, increase the level reached by 1
+        if(finishedLevel == PlayerPrefs.GetInt("levelReached", 1)){
+            PlayerPrefs.SetInt("levelReached", finishedLevel + 1);
+        }
         SceneManager.LoadScene("Level Select");
     }
 }

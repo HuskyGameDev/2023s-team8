@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Off to visit your mother");
     }
     //Similar to level select, but instead I have a specific name and only the number given changes
-    //The number given depends on which secondary scene you are being sent to
+    //what scene it goes to; this Secondary number is given by an external script
     public void GoToSecondary(){
         SceneManager.LoadScene("Secondary Level " + Secondary);
     }
