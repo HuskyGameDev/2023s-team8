@@ -11,7 +11,7 @@ public class PuzzleSolver : MonoBehaviour {
 
     // Update is called once per frame
     void Update() { }
-    //function is called by the finished button on each level, will pass in the level that was finished
+    //function is called by the finished button on each level, will pass in the level that was finished to game manager
     public void finished(){
         gameManager.pogressMade(currLevel);
     }
