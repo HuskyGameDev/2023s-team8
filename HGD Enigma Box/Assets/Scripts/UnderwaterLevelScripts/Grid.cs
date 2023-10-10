@@ -33,7 +33,7 @@ public class Grid
     }
     //gets the world position of a cell, this will change based on which cell we are looking at,
     //the cell size and where we want it to originate from
-    private Vector3 GetWorldPosition(int x, int y){
+    public Vector3 GetWorldPosition(int x, int y){
         return new Vector3(x,y) * cellSize + originPosition;
     }
     //sets cell [x,y] to whatever value we want to pass in
