@@ -7,7 +7,7 @@ public class Grid
     private int width;
     private int height;
     private float cellSize;
-    //this is a multidimensional array
+    //this is a ordered pair
     private int[,] gridArray;
     private Vector3 originPosition;
     //constructor that creates a grid of given width and height with cell size and where to start at in the world
@@ -22,7 +22,7 @@ public class Grid
         //nested loop that draws out where the grid is
         for (int i = 0; i < gridArray.GetLength(0); i++){
             for (int j = 0; j < gridArray.GetLength(1); j++){
-                //set to 0 so gettting a value doesn't break
+                //set to 0 so getting a value doesn't break
                 gridArray[i,j] = 0;
                 Debug.DrawLine(GetWorldPosition(i,j), GetWorldPosition(i,j+1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(i,j), GetWorldPosition(i +1,j), Color.white, 100f);
@@ -53,5 +53,10 @@ public class Grid
             return -1;
         }
 
+    }
+    //gets the center of the cell in case we need it
+    public Vector3 GetWorldPositionCenter(int x, int y)
+    {
+        return new Vector3(x, y) * cellSize + new Vector3(cellSize/2, cellSize/2) + originPosition;
     }
 }
