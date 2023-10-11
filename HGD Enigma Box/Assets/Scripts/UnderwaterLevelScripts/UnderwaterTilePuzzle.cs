@@ -163,7 +163,7 @@ public class UnderwaterTilePuzzle : MonoBehaviour
                     break;
                 case 3:
                     //this tile is the finish and will finish the level for the player
-                    manager.pogressMade(3);
+                    manager.pogressMade(1);
                     break;
                 default: break;
             }

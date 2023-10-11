@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 2823025275369117716}
   - component: {fileID: 2823025275369117719}
   m_Layer: 5
-  m_Name: Back
+  m_Name: BackInPuzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

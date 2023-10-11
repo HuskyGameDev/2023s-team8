@@ -20,8 +20,8 @@ public class LevelSelectScript : MonoBehaviour
         }
     }
     //nextLevel will be the level the player wants to go to
-    public void LevelSelect(string nextLevel) {
-        SceneManager.LoadScene("Level " + nextLevel);
+    public void LevelSelect(int nextLevel) {
+        SceneManager.LoadScene(nextLevel);
     }
     //back button simply sends them to the main menu
     public void Back(){

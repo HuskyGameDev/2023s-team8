@@ -10,6 +10,8 @@ public class Submit_Button_Controller : MonoBehaviour {
     private Selection_Box_Controller SBC1;  //Second selection box controller
     private Selection_Box_Controller SBC2;  //Third selection box controller
 
+    public GameManager manager;
+
     /// <summary>
     /// This just initiallizes all of the controllers we will be referencing.
     /// </summary>
@@ -26,7 +28,7 @@ public class Submit_Button_Controller : MonoBehaviour {
         if (!SBC0.correct || !SBC1.correct || !SBC2.correct) {  //Check to see if any values are incorrect
             return;
         }
-        Debug.Log("You win");                                   //WIN METHOD CALL HERE
+        manager.pogressMade(3);                                   //WIN METHOD CALL HERE
         return;
     }
 }

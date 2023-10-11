@@ -94,7 +94,7 @@ public class WeightSubmit : MonoBehaviour
             //animation will be character going off screen then coming back onto screen and hitting tree
             Debug.Log("Correct weight");
             //Invoke("LoadLevelSelect", 3f);
-            gameManager.pogressMade(1);
+            gameManager.pogressMade(2);
             
             
         } else if(total < 7)
