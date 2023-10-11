@@ -15,9 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/PrimaryLevels/Level 1.unity
     guid: 57ae2dce51ca9574d96c00651591b20a
   - enabled: 1
-    path: Assets/Scenes/PrimaryLevels/Level 2.unity
-    guid: b34435de4d9aa7749bc924d8329ecee8
-  - enabled: 1
     path: Assets/Scenes/PrimaryLevels/Level 3.unity
     guid: fff5ef8163230dc40ad9f3600d9e052e
   - enabled: 1
@@ -35,4 +32,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Options.unity
     guid: 00587e55ea853cd4c8bfc1eb3e3320c5
+  - enabled: 1
+    path: Assets/Scenes/PrimaryLevels/Underwater Level.unity
+    guid: d7ce18caa1a0f4a4a9478210be220838
+  - enabled: 1
+    path: Assets/Scenes/PrimaryLevels/WeightLevel.unity
+    guid: 625cca4dcb45dd2419995edc6415ccf4
+  - enabled: 1
+    path: Assets/Scenes/SecondaryLevels/Symbol Level Secondary.unity
+    guid: 41334806d5a937b48b87e7de64ab0ee7
   m_configObjects: {}
