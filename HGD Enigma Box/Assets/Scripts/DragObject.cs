@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /**
@@ -11,6 +12,7 @@ public class DragObject : MonoBehaviour
 {
     private Vector3 mOffset;
     private float mZCoord;
+    private bool mDragging = false;
 
     void Update()
     {
@@ -20,10 +22,13 @@ public class DragObject : MonoBehaviour
     /** gets the coordinates the object should be moved to position when the mouse is clicked */
     void OnMouseDown()
     {
-        mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z; //gets the current z position of the gameObject
+        mDragging= true;
+        if (mDragging) { 
+            mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z; //gets the current z position of the gameObject
 
-        // Store offset = gameobject world pos - mouse world pos
-        mOffset = gameObject.transform.position - GetMouseAsWorldPoint();
+            // Store offset = gameobject world pos - mouse world pos
+            mOffset = gameObject.transform.position - GetMouseAsWorldPoint();
+        }
     }
 
     /** gets positioon of mouse*/
@@ -39,10 +44,20 @@ public class DragObject : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(mousePoint);
     }
 
+    void OnMouseUp()
+    {
+        mDragging = false;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        mDragging = false;
+    }
+
     /** transforms game object to xy coordinates of mouse*/
     void OnMouseDrag()
     {
-        if (enabled)
+        if (enabled && mDragging)
         {
             transform.position = GetMouseAsWorldPoint() + mOffset;
         }
