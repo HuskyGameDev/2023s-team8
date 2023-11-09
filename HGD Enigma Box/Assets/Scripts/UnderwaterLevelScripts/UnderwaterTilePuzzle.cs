@@ -3,42 +3,84 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-    /*Whenever the player hits a direction, check if the place they are trying to go 
-        * exists, then check to see if it's an obstacle (value = 1), an open space (value = 0)
-        * a bubble square(value = 2), or the finish, (value = 3).
-        * 
-        * if the space is open, go to that spot, add it to the previously travelled
-        * list, and remove one from distance left. if the space is an obstacle, deny access
-        * and do pretty much nothing except play a noise. if it's a bubble square, still remove
-        * one from distance left for traveling, but add five to distance left afterward. If the 
-        * finish is reached, finish the level
-        *
-        * The previously travelled list should be a 2D array of the x and y values that we just
-        * travelled across so that the player can hit the undo button to go back and get
-        * their distance travelled back. Pretty much will work similarly to above but adding
-        * 1 distance back and removing 5 if it's a bubble square
-    */
+/*Whenever the player hits a direction, check if the place they are trying to go 
+    * exists, then check to see if it's an obstacle (value = 1), an open space (value = 0)
+    * a bubble square(value = 2), or the finish, (value = 3).
+    * 
+    * if the space is open, go to that spot, add it to the previously travelled
+    * list, and remove one from distance left. if the space is an obstacle, deny access
+    * and do pretty much nothing except play a noise. if it's a bubble square, still remove
+    * one from distance left for traveling, but add five to distance left afterward. If the 
+    * finish is reached, finish the level
+    *
+    * The previously travelled list should be a 2D array of the x and y values that we just
+    * travelled across so that the player can hit the undo button to go back and get
+    * their distance travelled back. Pretty much will work similarly to above but adding
+    * 1 distance back and removing 5 if it's a bubble square
+*/
+
+
 public class UnderwaterTilePuzzle : MonoBehaviour
 {
     //these are just sizes I decided on
     private int width = 14;
     private int height = 7;
     private float cellSize = 1f;
+    //the bottom left corner of the grid is the position
     private Vector3 gridPosition;
+    //this checks to see if the next tile exists
     private bool checkNext;
+    //keep track of where the player is on the grid
     private int currentXTile = 0;
     private int currentYTile = 0;
+    //used by my checker to keep track of the next tile that I'm going to check
     private int[] nextTile = new int[2];
+    //seperate game objects that are able to hold their grid coordinate that I can delete them while the user is playing
     public GameManager manager;
     public GameObject obstacleObj;
     public GameObject bubbleObj;
     public int movesLeft = 10;
+    private List<GridGameObject> onScreenObjects = new List<GridGameObject>();
+    
 
     private Grid grid;
     public GameObject player;
     public GameObject finish;
     public string textValue;
     public TMP_Text text;
+    GameObject findObjectToDestroy(int i, int j)
+    {
+        foreach (GridGameObject obj in onScreenObjects) {
+            if (obj.gridPosition[0] == i && obj.gridPosition[1] == j) {
+                onScreenObjects.Remove(obj);
+                return obj.getGameObj();
+            }
+        }
+        return null;
+    }
+
+    //This class is being made because I need to make a gameobject that I can store the 
+    //current tile position in
+    public class GridGameObject
+    {
+        private GameObject actualGameObject;
+        public int[] gridPosition = new int[2];
+        public GridGameObject(int x, int y, GameObject givenObj)
+        {
+            actualGameObject = givenObj;
+            gridPosition[0] = x;
+            gridPosition[1] = y;
+        }
+        public GameObject getGameObj()
+        {
+            return actualGameObject;
+        }
+        public void setPosition(int x, int y)
+        {
+            gridPosition[0] = x;
+            gridPosition[1] = y;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +95,7 @@ public class UnderwaterTilePuzzle : MonoBehaviour
         grid.setValue(6, 3, 1);
         grid.setValue(7, 4, 1);
         grid.setValue(6, 4, 1);
-        //bubble tile
+        //bubble tiles
         grid.setValue(0, 6, 2);
         grid.setValue(1, 6, 2);
         grid.setValue(width - 1, height - 1, 3);
@@ -68,15 +110,23 @@ public class UnderwaterTilePuzzle : MonoBehaviour
                     case 0:
                         break;
                     case 1:
+                        //create the underlying obstacle for the grid game object
                         GameObject obstacle = Instantiate(obstacleObj);
                         obstacle.transform.position = grid.GetWorldPositionCenter(i, j);
+                        //I might use this to make it so that you can push obstacles
+                        GridGameObject gridObstacle = new GridGameObject(i, j, obstacle);
+                        onScreenObjects.Add(gridObstacle);
                         break;
                     case 2:
+                        //create the underlying bubble for the grid game object
                         GameObject bubble = Instantiate(bubbleObj);
                         bubble.transform.position = grid.GetWorldPositionCenter(i, j);
+                        //shove the new game object into this list to destroy them later
+                        GridGameObject gridBubble = new GridGameObject(i, j, bubble);
+                        onScreenObjects.Add(gridBubble);
                         break;
                     case 3:
-
+                        //will spawn custom finish line later
                     default: break;
                 }
             }
@@ -89,8 +139,9 @@ public class UnderwaterTilePuzzle : MonoBehaviour
         //if the player releases any of the movement keys, check if they are in bounds
         //then move forwards
         if(Input.GetKeyUp("w")){
+            
             if((currentYTile + 1) < height)
-            {
+            {    
                 nextTile[0] = currentXTile;
                 nextTile[1] = currentYTile + 1;
                 checkNext = true;
@@ -155,9 +206,18 @@ public class UnderwaterTilePuzzle : MonoBehaviour
                     break;
                 case 2:
                     //this tile will eventually give the player five extra distance
+                    //put the player at the next tile
                     player.transform.position = grid.GetWorldPositionCenter(nextTile[0], nextTile[1]);
+                    //update where the player currently is
                     currentXTile = nextTile[0];
                     currentYTile = nextTile[1];
+                    //make it so the tile doesn't give moves anymore
+                    grid.setValue(currentXTile, currentYTile, 0);
+                    //destroy the sprite
+                    GameObject foundObject = findObjectToDestroy(currentXTile, currentYTile);
+                    if (foundObject != null) {
+                        Destroy(foundObject);
+                    }
                     movesLeft = movesLeft - 1;
                     movesLeft = movesLeft + 5;
                     break;
@@ -168,8 +228,10 @@ public class UnderwaterTilePuzzle : MonoBehaviour
                 default: break;
             }
         }
+        //reset check next for next movement
         checkNext = false;
         textValue = movesLeft.ToString();
+        //concatonate text value to update the on screen value
         text.text = "Moves Left: " + textValue;
     }
 }
