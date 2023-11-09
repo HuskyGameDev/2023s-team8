@@ -54,10 +54,11 @@ public class DragObject : MonoBehaviour
     void OnMouseUp()
     {
         mDragging = false;
-        childObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
+        childObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         childObject.GetComponent<Rigidbody2D>().mass = 1000000;
         transform.position = childObject.transform.position;
         childObject.transform.position = transform.position;
+        
     }
 
     void OnCollisionEnter2D(Collision2D collision)
