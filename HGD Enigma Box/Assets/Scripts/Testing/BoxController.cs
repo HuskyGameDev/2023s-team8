@@ -5,20 +5,19 @@ using UnityEngine;
 public class BoxController : MonoBehaviour {
     public LevelController levelController;
     private SpringJoint2D springJoint;
+    private Rigidbody2D rigidbody;
 
     private void Start() {
         this.springJoint = this.GetComponentInParent<SpringJoint2D>();
+        this.rigidbody = this.GetComponentInParent<Rigidbody2D>();
     }
 
     private void OnMouseDown() {
-        levelController.Move(this.springJoint);
-    }
-
-    private void OnMouseDrag() {
-        levelController.Move(this.springJoint);
+        levelController.Move(this.rigidbody);
     }
 
     private void OnMouseUp() {
-        levelController.Release(this.springJoint);
+        levelController.Release();
+        rigidbody.velocity = Vector2.zero;
     }
 }
