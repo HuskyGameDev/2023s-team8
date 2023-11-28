@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MazeMovement : MonoBehaviour
 {
-
+    //GameManager to end the level in the correct way
     public GameManager gameManager;
 
     //Speed of the player movement
@@ -26,7 +26,7 @@ public class MazeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //CHanges to speed value if their corresponding key is pressed
+        //Changes to speed value if their corresponding key is pressed
         float left = 0f;
         float right = 0f;
         float up = 0f;
@@ -90,7 +90,10 @@ public class MazeMovement : MonoBehaviour
         if (collision.gameObject.tag == "Finish")
         {
             finished = true;
-            Debug.Log("Reached finish!");
+            //Debug.Log("Reached finish!");
+            //sets the player position to the center of the finish just to make it look slightly better
+            rig.constraints = RigidbodyConstraints2D.FreezeAll;
+            rig.position = new Vector2(26.25f, 16.74f);
         }
     }
 
