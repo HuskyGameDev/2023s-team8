@@ -320,59 +320,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mousePoint: {x: 0, y: 0}
---- !u!1 &1083566575
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1083566578}
-  - component: {fileID: 1083566577}
-  m_Layer: 0
-  m_Name: MousePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!50 &1083566577
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1083566575}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!4 &1083566578
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1083566575}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1171202964
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -454,7 +401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2823025275369117718, guid: 704807a5f93670146837221477d7aa23, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -14.389999
+      value: -14.390015
       objectReference: {fileID: 0}
     - target: {fileID: 2823025275369117718, guid: 704807a5f93670146837221477d7aa23, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -661,7 +608,6 @@ GameObject:
   - component: {fileID: 2073275172}
   - component: {fileID: 2073275171}
   - component: {fileID: 2073275175}
-  - component: {fileID: 2073275176}
   m_Layer: 0
   m_Name: Box1
   m_TagString: Untagged
@@ -688,8 +634,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 7
 --- !u!61 &2073275172
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -796,26 +742,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelController: {fileID: 843229311}
---- !u!231 &2073275176
-SpringJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073275170}
-  m_Enabled: 0
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 1
-  m_Distance: 4.9692755
-  m_DampingRatio: 0.25
-  m_Frequency: 1
 --- !u!1 &2091304723
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,7 +755,6 @@ GameObject:
   - component: {fileID: 2091304725}
   - component: {fileID: 2091304724}
   - component: {fileID: 2091304728}
-  - component: {fileID: 2091304729}
   m_Layer: 0
   m_Name: Box0
   m_TagString: Untagged
@@ -856,8 +781,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 7
 --- !u!61 &2091304725
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -964,26 +889,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelController: {fileID: 843229311}
---- !u!231 &2091304729
-SpringJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091304723}
-  m_Enabled: 0
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 1
-  m_Distance: 2.601019
-  m_DampingRatio: 0.5
-  m_Frequency: 7
 --- !u!224 &2133801407 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2823025275369117718, guid: 704807a5f93670146837221477d7aa23, type: 3}
