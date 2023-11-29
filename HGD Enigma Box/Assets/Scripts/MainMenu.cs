@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
     number needed to get the it's corresponding scene
     */
     private int LevelSelect = 1;
-    public string Secondary;
+    public int Secondary;
     //when the start button is pressed, send us to level select
     public void Play() {
         //So we're at scene 0 currently, I add by LevelSelect, (which is 1), to get me to the level select scene which is scene 1
@@ -38,6 +38,6 @@ public class MainMenu : MonoBehaviour
     //Similar to level select, but instead I have a specific name and only the number given changes
     //what scene it goes to; this Secondary number is given by an external script
     public void GoToSecondary(){
-        SceneManager.LoadScene("Secondary Level " + Secondary);
+        SceneManager.LoadScene(Secondary);
     }
 }

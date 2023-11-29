@@ -6,7 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class PuzzleUI : MonoBehaviour
 {
-    public void Back(){
+    public void BackPrimary(){
         SceneManager.LoadScene("Level Select");
+    }
+    public void BackSecondary()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 }
