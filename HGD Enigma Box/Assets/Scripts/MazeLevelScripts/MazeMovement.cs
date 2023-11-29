@@ -71,7 +71,7 @@ public class MazeMovement : MonoBehaviour
         if (finished) 
         {
             //Will be changed once know what value to use in end level
-            Invoke("ReloadScene", 3f);
+            Invoke("EndLevel", 3f);
         }
     }
 
@@ -92,9 +92,7 @@ public class MazeMovement : MonoBehaviour
     //Will end the level in the proper way
     public void EndLevel()
     {
-        //Will either use gameManager if the level is treated like a primary level
-        //or will just go to level select if the level is treated like a secondary level
-        //gameManager.pogressMade(2);
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     //Used right now for the finish until secondary levels decided
