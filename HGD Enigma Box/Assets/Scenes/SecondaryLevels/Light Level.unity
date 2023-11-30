@@ -2841,7 +2841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2823025275369117718, guid: 704807a5f93670146837221477d7aa23, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -14.389999
+      value: -14.390015
       objectReference: {fileID: 0}
     - target: {fileID: 2823025275369117718, guid: 704807a5f93670146837221477d7aa23, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2866,6 +2866,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1624607539}
+  - component: {fileID: 1624607540}
   m_Layer: 0
   m_Name: Lights Container
   m_TagString: Untagged
@@ -2898,6 +2899,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1624607540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624607538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4376cc125a029b64eb5cb3ae4005f3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lights:
+  - {fileID: 1715450046}
+  - {fileID: 1558690905}
+  - {fileID: 1037934768}
+  - {fileID: 1859529246}
+  - {fileID: 369838311}
+  - {fileID: 1004228613}
+  - {fileID: 1508803183}
+  - {fileID: 2040881074}
+  - {fileID: 135136620}
 --- !u!1 &1715450043
 GameObject:
   m_ObjectHideFlags: 0
