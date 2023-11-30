@@ -28,7 +28,7 @@ public class Submit_Button_Controller : MonoBehaviour {
         if (!SBC0.correct || !SBC1.correct || !SBC2.correct) {  //Check to see if any values are incorrect
             return;
         }
-        manager.pogressMade(3);                                   //WIN METHOD CALL HERE
+        manager.pogressMade(3, true);                                   //WIN METHOD CALL HERE
         return;
     }
 }

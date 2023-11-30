@@ -8,14 +8,17 @@ public class LevelSelectScript : MonoBehaviour
 {
     public Button[] levelButtons;
     void Start(){
-        // this line of code will reset player progress
-        //PlayerPrefs.SetInt("levelReached", 1);
+
         int levelReached = PlayerPrefs.GetInt("levelReached", 1);
         //loop through all the level buttons and make any levels after
         //levelReached false
         for(int i = 0; i < levelButtons.Length; i++){
-            if(i+1 > levelReached){
-            levelButtons[i].interactable = false;
+            if (i + 1 > levelReached)
+            {
+                levelButtons[i].interactable = false;
+            }
+            else {
+                levelButtons[i].interactable = true;
             }
         }
     }

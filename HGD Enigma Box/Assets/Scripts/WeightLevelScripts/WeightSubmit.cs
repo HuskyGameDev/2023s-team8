@@ -140,6 +140,6 @@ public class WeightSubmit : MonoBehaviour
     //Loads the level select screen and tracks that the level is done
     public void EndLevel()
     {
-        gameManager.pogressMade(2);
+        gameManager.pogressMade(2, false);
     }
 }

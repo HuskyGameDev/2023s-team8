@@ -20,6 +20,32 @@ public class MainMenu : MonoBehaviour
     */
     private int LevelSelect = 1;
     public int Secondary;
+    public Button[] secondaryButtons;
+    void Start()
+    {
+        // these lines of code will reset player progress for both primary and secondary levels respectively
+        //PlayerPrefs.SetInt("levelReached", 1);
+        //PlayerPrefs.SetInt("secondaryLevelReached", 1);
+        //PlayerPrefs.SetInt("secondaryLevelUnlocked", 0);
+        //this number determines how many of the secondary levels we have actually completed
+        int levelReached = PlayerPrefs.GetInt("secondaryLevelReached", 1);
+        //this number determines how many secondary levels we have unlocked according the the primary levels
+        int levelUnlocked = PlayerPrefs.GetInt("secondaryLevelUnlocked", 0);
+        //loop through all the level buttons and make any levels after
+        //levelReached false
+        for (int i = 0; i < secondaryButtons.Length; i++)
+        {
+            if ((i < levelReached) && (i < levelUnlocked))
+            {
+                secondaryButtons[i].interactable = true;
+                secondaryButtons[i].gameObject.SetActive(true);
+            }
+            else {
+                secondaryButtons[i].interactable = false;
+                secondaryButtons[i].gameObject.SetActive(false);
+            }
+        }
+    }
     //when the start button is pressed, send us to level select
     public void Play() {
         //So we're at scene 0 currently, I add by LevelSelect, (which is 1), to get me to the level select scene which is scene 1
@@ -35,8 +61,7 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
         Debug.Log("Off to visit your mother");
     }
-    //Similar to level select, but instead I have a specific name and only the number given changes
-    //what scene it goes to; this Secondary number is given by an external script
+    //Similar to level select, but for secondary levels
     public void GoToSecondary(){
         SceneManager.LoadScene(Secondary);
     }

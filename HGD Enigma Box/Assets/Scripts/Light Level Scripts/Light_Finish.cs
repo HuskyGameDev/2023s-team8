@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Light_Finish : MonoBehaviour
 {
+    public GameManager gameManager;
     //List of all the lights
     public List<Light_Controller> lights = new List<Light_Controller>();
 
@@ -32,16 +33,10 @@ public class Light_Finish : MonoBehaviour
                 break;
             }
         }
-
+        //uses game manager to update if we've finished this level
         if (finished)
         {
-            Invoke("EndLevel", 3f);
+            gameManager.pogressMade(2, true);
         }
-    }
-
-    //Ends the level
-    public void EndLevel()
-    {
-        SceneManager.LoadScene("MainMenuScene");
     }
 }
