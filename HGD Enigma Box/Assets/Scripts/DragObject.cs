@@ -14,13 +14,13 @@ public class DragObject : MonoBehaviour
     public GameObject childObject;
     public Vector3 maxVelocity, minVelocity;
     private Vector3 mOffset;
-    private Vector3 lastCoord;
+    private Vector3 lastCoord, childLastCoord;
     private float mZCoord;
     private bool mDragging = false;
 
     void Update()
     {
-
+            
     }
 
     /** gets the coordinates the object should be moved to position when the mouse is clicked */
@@ -56,14 +56,12 @@ public class DragObject : MonoBehaviour
         mDragging = false;
         childObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         childObject.GetComponent<Rigidbody2D>().mass = 1000000;
-        transform.position = childObject.transform.position;
-        childObject.transform.position = transform.position;
+        lastCoord = childObject.transform.position;
+        childLastCoord = childObject.transform.position;
+        lastCoord.z = transform.position.z;
+        transform.position = lastCoord;
+        childObject.transform.position = childLastCoord;
         
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        //mDragging = false;
     }
 
     /** transforms game object to xy coordinates of mouse*/
