@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 /**
  * When the submit button is pressed, the selected weight will be checked and the scene will be reloaded if incorrect or go to the level select scene if correct
+ * and play an animation accordingly
  */
 public class WeightSubmit : MonoBehaviour
 {
@@ -24,8 +25,14 @@ public class WeightSubmit : MonoBehaviour
     //Array of the actual game object for animation purposes, first 3 are the rocks, 4th is the log, 5th is the character
     [SerializeField] GameObject[] objects;
 
-    //Will eventually be more waypoints that represent the different launches from the rocks
-    [SerializeField] GameObject waypoint;
+    //0 is the waypoint for too much, next 4 are for too little wieght, last one will be for correct weight
+    [SerializeField] GameObject[] waypoints;
+
+    //Int that represents the current index for the waypoints of the too little weight animation
+    int tooLittleCurrent;
+
+    //Int that represents the current index for the waypoints of the correct weight animation
+    int correctCurrent;
 
     //False if submit button was not pressed, true if it has been pressed, used only for the animation purposes in update method
     bool submitted = false;
@@ -37,6 +44,8 @@ public class WeightSubmit : MonoBehaviour
     void Start()
     {
         total = 0;
+        tooLittleCurrent = 1;
+        correctCurrent = 0;
         rockCollision = objects[3].GetComponent<RockCollisionDetection>();
     }
 
@@ -44,29 +53,43 @@ public class WeightSubmit : MonoBehaviour
     void Update()
     {
         if (submitted == true) {
-            //probably detect colision here
+            
             if (rockCollision.isColliding == true)
             {
+                //So the log doesn't continue to rotate
                 if (rotated == false)
                 {
                     objects[3].transform.Rotate(0, 0, -16);
                     rotated = true;
                 }
 
+                //correct weight
                 if (total == 7)
                 {
-                    //not correct but will be similar
-                    objects[4].transform.position = Vector3.MoveTowards(objects[4].transform.position, waypoint.transform.position, 40f * Time.deltaTime);
+                    //Changes waypoint as the character approaches it
+                    if (Vector3.Distance(waypoints[correctCurrent].transform.position, objects[4].transform.position) < 1)
+                    {
+                        correctCurrent = 5;
+                    }
+                    objects[4].transform.position = Vector3.MoveTowards(objects[4].transform.position, waypoints[correctCurrent].transform.position, 35f * Time.deltaTime);
                 }
+                //too little weight
                 else if (total < 7)
                 {
-                    //not correct but will be similar
-                    objects[4].transform.position = Vector3.MoveTowards(objects[4].transform.position, waypoint.transform.position, 40f * Time.deltaTime);
+                    //Changes waypoint as the character approaches it until the last one
+                    if (Vector3.Distance(waypoints[tooLittleCurrent].transform.position, objects[4].transform.position) < 1)
+                    {
+                        if(tooLittleCurrent < 4)
+                        {
+                            tooLittleCurrent++;
+                        }
+                    }
+                    objects[4].transform.position = Vector3.MoveTowards(objects[4].transform.position, waypoints[tooLittleCurrent].transform.position, 30f * Time.deltaTime);
                 }
+                //too much weight
                 else
                 {
-                    //Moves character to mimic catapult look
-                    objects[4].transform.position = Vector3.MoveTowards(objects[4].transform.position, waypoint.transform.position, 40f * Time.deltaTime);
+                    objects[4].transform.position = Vector3.MoveTowards(objects[4].transform.position, waypoints[0].transform.position, 40f * Time.deltaTime);
                 }
             }
         }
@@ -87,25 +110,20 @@ public class WeightSubmit : MonoBehaviour
 
         submitted = true;
 
-        //End level accordingly, possible animations depending on state
+        //End level accordingly
         if(total == 7)
         {
-            //level will end succesfully
-            //animation will be character going off screen then coming back onto screen and hitting tree
             Debug.Log("Correct weight");
-            //Invoke("LoadLevelSelect", 3f);
-            gameManager.pogressMade(2);
+            Invoke("EndLevel", 3f);
             
             
         } else if(total < 7)
         {
-            //level ends with not enough weight
             Debug.Log("Not enough weight");
             Invoke("ReloadScene", 3f);
 
         } else 
         {
-            //level ends with too much weight
             Debug.Log("Too much weight");
             Invoke("ReloadScene", 3f);
         }
@@ -113,16 +131,15 @@ public class WeightSubmit : MonoBehaviour
 
     //The following 2 methods were created just so Invoke could be called on them with a time delay
 
-    //Loads the level select scene
-    public void LoadLevelSelect()
-    {
-        SceneManager.LoadScene("Level Select");
-        //could add progress made method here to still be able to have few secs before switch
-    }
-
     //Reloads the current scene
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    //Loads the level select screen and tracks that the level is done
+    public void EndLevel()
+    {
+        gameManager.pogressMade(2, false);
     }
 }

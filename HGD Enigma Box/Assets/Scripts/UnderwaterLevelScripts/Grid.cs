@@ -7,7 +7,7 @@ public class Grid
     private int width;
     private int height;
     private float cellSize;
-    //this is a ordered pair
+    //this is a ordered pair to hold the grid values
     private int[,] gridArray;
     private Vector3 originPosition;
     //constructor that creates a grid of given width and height with cell size and where to start at in the world
@@ -24,6 +24,7 @@ public class Grid
             for (int j = 0; j < gridArray.GetLength(1); j++){
                 //set to 0 so getting a value doesn't break
                 gridArray[i,j] = 0;
+                //to see these draw lines you need to turn on gizmos in the top right corner of the game scene
                 Debug.DrawLine(GetWorldPosition(i,j), GetWorldPosition(i,j+1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(i,j), GetWorldPosition(i +1,j), Color.white, 100f);
             }
@@ -44,7 +45,7 @@ public class Grid
     }
     //gets the value set at cell[x,y]
     public int getValue(int x, int y){
-        //look for the value of the 
+        //look for the value of the coordinate given
         if(x >= 0 && y >= 0 && x < width && y < height){
             return gridArray[x,y];
         }
@@ -54,7 +55,8 @@ public class Grid
         }
 
     }
-    //gets the center of the cell in case we need it
+    //gets the center of the cell because some sprites need to be put at the center of the cell
+    //to look correct
     public Vector3 GetWorldPositionCenter(int x, int y)
     {
         return new Vector3(x, y) * cellSize + new Vector3(cellSize/2, cellSize/2) + originPosition;
